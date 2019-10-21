@@ -3,9 +3,9 @@
         <abort_action>false</abort_action>
         <access>package_private</access>
         <action_delete>false</action_delete>
-        <action_insert>false</action_insert>
+        <action_insert>true</action_insert>
         <action_query>false</action_query>
-        <action_update>false</action_update>
+        <action_update>true</action_update>
         <active>true</active>
         <add_message>false</add_message>
         <advanced>true</advanced>
@@ -37,6 +37,15 @@
 	if(whenNeeded.before(rightnow)){
 		gs.addErrorMessage("When needed date cannot be in the past.  Your request has not been saved to the database.");
 		current.setAbortAction(true);
+	}
+
+// pass the When needed field value to the isDateToday method in NeedItUtils
+	var isToday = niutils.isDateToday(current.u_when_needed);
+	
+	// if the isDateToday method returns true the When needed date is today 
+	if(isToday == true){
+		gs.addErrorMessage("You cannot submit NeedIt requests for today.");
+		current.setAbortAction(true);
 	}]]></script>
         <sys_class_name>sys_script</sys_class_name>
         <sys_created_by>admin</sys_created_by>
@@ -44,7 +53,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>5181b149db104010639af282399619ec</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>NeedIt When needed field date</sys_name>
         <sys_overrides/>
         <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
@@ -52,7 +61,7 @@
         <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
         <sys_update_name>sys_script_5181b149db104010639af282399619ec</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-10-03 08:04:54</sys_updated_on>
+        <sys_updated_on>2019-10-21 04:05:58</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>
